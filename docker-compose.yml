@@ -1,0 +1,32 @@
+version: '2.4'
+
+services: 
+  app:
+    build:
+      context: .
+      dockerfile: devDockerfile
+    env_file: 
+      - .env
+    ports: 
+      - ${APP_PORT}:${APP_PORT}
+    mem_limit: 500m
+
+  mongo:
+    image: mongo:4.4.1-bionic
+    restart: unless-stopped
+    ports: 
+      - ${MONGO_PORT}:27017
+    env_file: 
+      - .env
+    volumes: 
+      - ./mongo_data:/data/db
+    mem_limit: 500m
+  
+  mongo-express:
+    image: mongo-express
+    restart: unless-stopped
+    ports:
+      - ${EXPRESS_PORT}:8081
+    env_file: 
+      - .env
+    mem_limit: 300m

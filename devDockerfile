@@ -1,0 +1,7 @@
+FROM golang:alpine
+
+WORKDIR /var/app/
+
+COPY . /var/app/
+
+CMD go run cmd/back/main.go
